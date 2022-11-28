@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "todo": "bin/index.js"
+  },
   "scripts": {
     "start": "node lib",
     "start-debug": "nodemon src/index.ts",
