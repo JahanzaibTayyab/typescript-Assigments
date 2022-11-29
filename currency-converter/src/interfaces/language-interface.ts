@@ -3,5 +3,5 @@ export default interface LanguageInterface {
   config?: boolean;
   name?: string;
   status?: boolean;
-  content?: string;
+  content?: any;
 }

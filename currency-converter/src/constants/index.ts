@@ -1,4 +1,6 @@
-export const currencies = [
+import CurrencyInterface from "../interfaces/currency-interface.js";
+
+export const currencies: Array<CurrencyInterface> = [
   {
     code: "AED",
     symbol: "\u062f.\u0625;",

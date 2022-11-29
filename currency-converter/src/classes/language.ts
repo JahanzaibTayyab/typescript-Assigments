@@ -7,10 +7,10 @@ class Language {
   _status: boolean;
   _content: any;
 
-  constructor(content: LanguageInterface = {}) {
-    this._name = content.language || "";
-    this._status = content.config || false;
-    this._content = content.name || this._name;
+  constructor(object: any = {}) {
+    this._name = object.language || "";
+    this._status = object.config || false;
+    this._content = object.name || object[this._name];
   }
 
   get name(): string {
@@ -34,7 +34,7 @@ class Language {
     return this._content;
   }
 
-  static async languagePrompt(listOfLanguage: Array<LanguageInterface>) {
+  static languagePrompt(listOfLanguage: Array<LanguageInterface>) {
     const question: any = {
       choices: [],
       message: "Choose the language",
@@ -45,7 +45,7 @@ class Language {
       },
     };
     question.choices = listOfLanguage.map((language) => language.content);
-    return await inquirer.prompt(question);
+    return inquirer.prompt(question);
   }
 }
 
