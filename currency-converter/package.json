@@ -1,6 +1,6 @@
 {
   "name": "@jahanzaib-tayyab/currency-converter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Real time currency converter",
   "main": "index.js",
   "type": "module",
