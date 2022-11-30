@@ -1,9 +1,12 @@
 {
-  "name": "word-counter",
+  "name": "@jahanzaib-tayyab/word-counter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Word Counter App",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "word-count": "lib/index.js"
+  },
   "scripts": {
     "start": "node  lib",
     "start-debug": "nodemon  src/index.ts",
@@ -12,7 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jahanzaib Tayyab",
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.1.2",
@@ -29,5 +32,16 @@
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JahanzaibTayyab/typescript-Assigments.git#main"
+  },
+  "bugs": {
+    "url": "https://github.com/JahanzaibTayyab/typescript-Assigments/issues"
+  },
+  "homepage": "https://github.com/JahanzaibTayyab/typescript-Assigments/tree/main#readme"
 }
