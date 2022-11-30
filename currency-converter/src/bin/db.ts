@@ -1,14 +1,18 @@
 import fs from "fs";
 import chalk from "chalk";
+import path from "path";
+import { fileURLToPath } from "url";
 import LanguageInterface from "../interfaces/language-interface.js";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class Database {
   // Save language chosen by user
   static saveLanguage(language: LanguageInterface): void {
-    const todoBuffer = fs.readFileSync("db.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/db.json");
     const dbContent: any = JSON.parse(todoBuffer.toString());
     try {
-      fs.access("db.json", (err) => {
+      fs.access(__dirname + "/db.json", (err) => {
         if (err) {
           fs.writeFileSync(
             "db.json",
@@ -36,7 +40,7 @@ class Database {
         dbContent.status = language.status || false;
         dbContent.cont_api_key = 0;
         const dataJSON = JSON.stringify(dbContent);
-        fs.writeFile("db.json", dataJSON, "utf8", (err) => {
+        fs.writeFile(__dirname + "/db.json", dataJSON, "utf8", (err) => {
           if (err) return console.log(err);
         });
       });
@@ -48,15 +52,15 @@ class Database {
   // Save language chosen by user
   static saveContent(content: number): void {
     try {
-      const todoBuffer = fs.readFileSync("db.json");
+      const todoBuffer = fs.readFileSync(__dirname + "/db.json");
       const dbContent: any = JSON.parse(todoBuffer.toString());
-      fs.access("db.json", (err) => {
+      fs.access(__dirname + "/db.json", (err) => {
         if (err) {
-          fs.writeFileSync("db.json", JSON.stringify({}));
+          fs.writeFileSync(__dirname + "/db.json", JSON.stringify({}));
         }
         dbContent.cont_api_key = content;
         const dataJSON = JSON.stringify(dbContent);
-        fs.writeFile("db.json", dataJSON, "utf8", (err) => {
+        fs.writeFile(__dirname + "/db.json", dataJSON, "utf8", (err) => {
           if (err) return console.log(err);
         });
       });
@@ -67,13 +71,13 @@ class Database {
 
   // return the default language
   static content() {
-    const todoBuffer = fs.readFileSync("db.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/db.json");
     const dbContent: any = JSON.parse(todoBuffer.toString());
     return dbContent;
   }
 
   static api_key(): boolean {
-    const todoBuffer = fs.readFileSync("db.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/db.json");
     const dbContent: any = JSON.parse(todoBuffer.toString());
     let value = dbContent.cont_api_key;
     if (value > 9) {
