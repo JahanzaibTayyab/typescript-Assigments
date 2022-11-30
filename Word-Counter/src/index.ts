@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import figlet from "figlet";
 import ora from "ora";
 import inquirer from "inquirer";
