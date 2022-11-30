@@ -42,22 +42,22 @@ const showTodoOptions = async () => {
   ]);
   switch (option) {
     case "Add":
-      createTodo();
+      await createTodo();
       break;
     case "List":
-      listTodo();
+      await listTodo();
       break;
     case "Read":
-      getOneTodo();
+      await getOneTodo();
       break;
     case "Delete":
-      deleteTodo();
+      await deleteTodo();
       break;
     case "Done":
-      markAsDone();
+      await markAsDone();
       break;
     case "Report":
-      todoReport();
+      await todoReport();
       break;
     default:
       console.log("Invalid Option");
