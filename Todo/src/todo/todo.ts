@@ -1,8 +1,12 @@
 import fs from "fs";
 import inquirer from "inquirer";
 import { createSpinner } from "nanospinner";
+import path from "path";
+import { fileURLToPath } from "url";
 import chalk from "chalk";
 import Todo from "src/interfaces/add-todo.js";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const spinner = createSpinner();
 
@@ -33,13 +37,13 @@ const createTodo = async () => {
     },
   ]);
   try {
-    fs.access("todos.json", (err) => {
+    fs.access(__dirname + "/todos.json", (err) => {
       if (err) {
-        fs.writeFileSync("todos.json", JSON.stringify([]));
+        fs.writeFileSync(__dirname + "/todos.json", JSON.stringify([]));
       }
-      const todoBuffer = fs.readFileSync("todos.json");
+      const todoBuffer = fs.readFileSync(__dirname + "/todos.json");
       let dataJSON = todoBuffer.toString();
-      const todos: [Todo] = JSON.parse(dataJSON);
+      const todos: Array<Todo> = JSON.parse(dataJSON);
       const duplicateTodo = todos.find((todo) => {
         return todo.title === data.title;
       });
@@ -50,7 +54,7 @@ const createTodo = async () => {
           status: false,
         });
         dataJSON = JSON.stringify(todos);
-        fs.writeFileSync("todos.json", dataJSON);
+        fs.writeFileSync(__dirname + "/todos.json", dataJSON);
         spinner.success({
           text: `Todo ${chalk.bold.bgGreenBright(
             data.title
@@ -69,9 +73,9 @@ const createTodo = async () => {
 
 const listTodo = () => {
   try {
-    const todoBuffer = fs.readFileSync("todos.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/todos.json");
     let dataJSON = todoBuffer.toString();
-    const todos: [Todo] = JSON.parse(dataJSON);
+    const todos: Array<Todo> = JSON.parse(dataJSON);
     todos.map((todo) => {
       console.log(`\n ${todo.id}: ${chalk.bgGray(todo.title)}`);
     });
@@ -90,9 +94,9 @@ const getOneTodo = async () => {
     },
   ]);
   try {
-    const todoBuffer = fs.readFileSync("todos.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/todos.json");
     let dataJSON = todoBuffer.toString();
-    const todos: [Todo] = JSON.parse(dataJSON);
+    const todos: Array<Todo> = JSON.parse(dataJSON);
     const Todo: Todo | undefined = todos.find((item) => {
       return item.title.toLowerCase() === data.title.toLowerCase();
     });
@@ -120,14 +124,14 @@ const deleteTodo = async () => {
     },
   ]);
   try {
-    const todoBuffer = fs.readFileSync("todos.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/todos.json");
     let dataJSON = todoBuffer.toString();
-    const todos: [Todo] = JSON.parse(dataJSON);
+    const todos: Array<Todo> = JSON.parse(dataJSON);
     const remain = todos.filter((item) => {
       return item.id != data.id;
     });
     dataJSON = JSON.stringify(remain);
-    fs.writeFileSync("todos.json", dataJSON);
+    fs.writeFileSync(__dirname + "/todos.json", dataJSON);
     if (remain.length === todos.length) {
       console.log(chalk.red("This file does not exist"));
     } else {
@@ -150,9 +154,9 @@ const markAsDone = async () => {
     },
   ]);
   try {
-    const todoBuffer = fs.readFileSync("todos.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/todos.json");
     let dataJSON = todoBuffer.toString();
-    const todos: [Todo] = JSON.parse(dataJSON);
+    const todos: Array<Todo> = JSON.parse(dataJSON);
     const todoIndex = todos.findIndex((item) => {
       return item.title.toLowerCase() === data.title.toLowerCase();
     });
@@ -161,7 +165,7 @@ const markAsDone = async () => {
       status: true,
     });
     dataJSON = JSON.stringify(todos);
-    fs.writeFileSync("todos.json", dataJSON);
+    fs.writeFileSync(__dirname + "/todos.json", dataJSON);
     spinner.success({
       text: `Todo marked as done`,
     });
@@ -172,9 +176,9 @@ const markAsDone = async () => {
 
 const todoReport = () => {
   try {
-    const todoBuffer = fs.readFileSync("todos.json");
+    const todoBuffer = fs.readFileSync(__dirname + "/todos.json");
     let dataJSON = todoBuffer.toString();
-    const todos: [Todo] = JSON.parse(dataJSON);
+    const todos: Array<Todo> = JSON.parse(dataJSON);
     const filterTodoData = todos.filter((item) => item.status === false);
     const filterDoneData = todos.filter((item) => item.status === true);
     console.log(`
