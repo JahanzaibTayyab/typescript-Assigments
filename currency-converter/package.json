@@ -21,8 +21,7 @@
     "figlet": "^1.5.2",
     "inquirer": "^9.1.4",
     "inquirer-autocomplete-prompt": "^3.0.0",
-    "ora": "^6.1.2",
-    "request": "^2.88.2"
+    "ora": "^6.1.2"
   },
   "devDependencies": {
     "@types/chalk-animation": "^1.6.1",

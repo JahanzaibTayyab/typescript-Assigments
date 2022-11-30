@@ -16,7 +16,7 @@ import Converter from "./convertor/index.js";
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 const init = async () => {
   const spinner = ora();
-  //console.log(figlet.textSync("CURRENCY - CONVERSION"));
+  console.log(figlet.textSync("CURRENCY - CONVERSION"));
   inquirer.registerPrompt("autocomplete", inquirerPrompt);
   const language: LanguageInterface = await initialLanguage();
   let choose, from, value, to, result;
@@ -42,9 +42,11 @@ const init = async () => {
         await sleep();
         spinner.stop();
         result = await Converter.converter(from.code, to.code, value);
+        spinner.succeed(result?.result.toFixed(2) + " " + to.code);
         break;
       case 2:
-        Converter.help();
+        const helpResponse = await Converter.help();
+        console.table(helpResponse.quotes);
         break;
       case 3:
         return false;
