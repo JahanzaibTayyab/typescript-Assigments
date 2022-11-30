@@ -2,35 +2,35 @@ import fs from "fs";
 import chalk from "chalk";
 import LanguageInterface from "../interfaces/language-interface.js";
 
-const dbContent = {
-  Eng: {
-    name: "English ",
-    choice2: "Help ",
-    form2: "Please type currency from name, then choose it ",
-    form3: "Please type currency to name, then choose it ",
-    form4: "Please type the value ",
-    form5: "Please input value in format: From To Money => (USD EUR 1)",
-    form1: " Choose an option ",
-    choice3: "Exit ",
-    is: "is ",
-    choice1: "Converter ",
-  },
-  status: false,
-  language: "Eng",
-  cont_api_key: 0,
-};
-
 class Database {
   // Save language chosen by user
   static saveLanguage(language: LanguageInterface): void {
-    dbContent.language = language.name || "";
-    dbContent.status = language.status || false;
-    dbContent.cont_api_key = 0;
-    const dataJSON = JSON.stringify(dbContent);
+    const todoBuffer = fs.readFileSync("db.json");
+    const dbContent: any = JSON.parse(todoBuffer.toString());
     try {
       fs.access("db.json", (err) => {
         if (err) {
-          fs.writeFileSync("db.json", JSON.stringify({}));
+          fs.writeFileSync(
+            "db.json",
+            JSON.stringify({
+              Eng: {
+                name: "English ",
+                choice2: "Help ",
+                form2: "Please type currency from name, then choose it ",
+                form3: "Please type currency to name, then choose it ",
+                form4: "Please type the value ",
+                form5:
+                  "Please input value in format: From To Money => (USD EUR 1)",
+                form1: " Choose an option ",
+                choice3: "Exit ",
+                is: "is ",
+                choice1: "Converter ",
+              },
+              status: true,
+              language: "Eng",
+              cont_api_key: 0,
+            })
+          );
         }
         dbContent.language = language.name || "";
         dbContent.status = language.status || false;
@@ -48,6 +48,8 @@ class Database {
   // Save language chosen by user
   static saveContent(content: number): void {
     try {
+      const todoBuffer = fs.readFileSync("db.json");
+      const dbContent: any = JSON.parse(todoBuffer.toString());
       fs.access("db.json", (err) => {
         if (err) {
           fs.writeFileSync("db.json", JSON.stringify({}));
@@ -65,11 +67,14 @@ class Database {
 
   // return the default language
   static content() {
+    const todoBuffer = fs.readFileSync("db.json");
+    const dbContent: any = JSON.parse(todoBuffer.toString());
     return dbContent;
   }
 
-  // return true if user number conversion without access key <=10 or false
   static api_key(): boolean {
+    const todoBuffer = fs.readFileSync("db.json");
+    const dbContent: any = JSON.parse(todoBuffer.toString());
     let value = dbContent.cont_api_key;
     if (value > 9) {
       return false;

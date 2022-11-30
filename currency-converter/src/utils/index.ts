@@ -6,6 +6,33 @@ import DataBase from "../bin/db.js";
 import LanguageInterface from "../interfaces/language-interface.js";
 import CurrencyInterface from "../interfaces/currency-interface.js";
 
+const accessKey = () => {
+  if (process.env.CURRENCYLAYER_ACESS_KEY == undefined) {
+    if (DataBase.api_key()) {
+      console.log(
+        chalk.yellow(
+          "Please set Environment variable $CURRENCYLAYER_ACESS_KEY. get your access key here https://currencylayer.com/"
+        )
+      );
+      console.log(
+        chalk.yellow(
+          `You can use the module ${
+            10 - DataBase.content().cont_api_key
+          } time without Environment variable $CURRENCYLAYER_ACESS_KEY`
+        )
+      );
+      return true;
+    } else {
+      console.log(
+        chalk.red(
+          "Environment variable $CURRENCYLAYER_ACESS_KEY is not set. see more https://github.com/JairoDuarte/money-conversion/blob/master/README.md"
+        )
+      );
+      process.exit(0);
+    }
+  }
+};
+
 const initialQuestion = (
   listOfElements: Array<CurrencyInterface>,
   message: string
@@ -37,6 +64,7 @@ const questionValue = (message: string) => {
 };
 
 const initialLanguage = async () => {
+  accessKey();
   let content = DataBase.content();
   if (!content.status) {
     let listOfLanguage: Array<LanguageInterface> = [];
