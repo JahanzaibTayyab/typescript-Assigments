@@ -1,11 +1,11 @@
 {
   "name": "@jahanzaib-tayyab/currency-converter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Real time currency converter",
   "main": "index.js",
   "type": "module",
   "bin": {
-    "currency-converter": "bin/index.js"
+    "currency-converter": "lib/index.js"
   },
   "scripts": {
     "start": "node  lib",
