@@ -8,7 +8,7 @@
     "currency-converter": "lib/index.js"
   },
   "scripts": {
-    "start": "node  lib",
+    "start": "tsc && node  lib",
     "start-debug": "nodemon  src/index.ts",
     "start-dev": "ts-node src/index.ts",
     "build": "tsc ",
